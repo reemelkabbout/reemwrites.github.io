@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Name, PhD — Biomedical &amp; Clinical Sciences</title>
+<meta name="description" content="Portfolio of Your Name, PhD — bioinformatics, clinical research, and medical writing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Sequence ruler / scroll progress -->
+<div class="ruler" id="ruler" aria-hidden="true">
+  <div class="ruler-fill" id="rulerFill"></div>
+</div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#home" class="nav-brand">YOUR<span>NAME</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav-links" id="navLinks">
+      <a href="#expertise">Expertise</a>
+      <a href="#publications">Publications</a>
+      <a href="#bioinformatics">Bioinformatics</a>
+      <a href="#writing">Medical Writing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home" class="section hero">
+    <p class="eyebrow">PHD &middot; BIOMEDICAL &amp; CLINICAL SCIENCES</p>
+    <h1>Your Name</h1>
+    <p class="hero-sub">
+      I study disease mechanisms at the bench and communicate them at the page —
+      moving between bioinformatic analysis and clinical &amp; medical writing.
+      This is a running record of my publications, tools, and current projects.
+    </p>
+    <div class="hero-actions">
+      <a href="#publications" class="btn btn-primary">View publications</a>
+      <a href="#contact" class="btn btn-ghost">Get in touch</a>
+    </div>
+    <dl class="hero-stats">
+      <div><dt>Publications</dt><dd>00</dd></div>
+      <div><dt>Years in research</dt><dd>00</dd></div>
+      <div><dt>Active projects</dt><dd>00</dd></div>
+    </dl>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise" class="section">
+    <p class="eyebrow">SECTION 01 — EXPERTISE</p>
+    <h2>What I work with</h2>
+    <div class="grid grid-4up">
+      <article class="panel">
+        <p class="panel-tag">WET &amp; DRY LAB</p>
+        <h3>Bioinformatics</h3>
+        <p>RNA-seq &amp; variant-calling pipelines, R/Python analysis, Nextflow/Snakemake workflows.</p>
+      </article>
+      <article class="panel">
+        <p class="panel-tag">TRIALS</p>
+        <h3>Clinical Research</h3>
+        <p>Study design, biostatistics collaboration, GCP-compliant data handling.</p>
+      </article>
+      <article class="panel">
+        <p class="panel-tag">MANUSCRIPTS</p>
+        <h3>Medical Writing</h3>
+        <p>Peer-reviewed manuscripts, regulatory documents, patient-facing summaries.</p>
+      </article>
+      <article class="panel">
+        <p class="panel-tag">TOOLING</p>
+        <h3>Data &amp; Software</h3>
+        <p>Reproducible reporting, version control, lightweight web tools for lab use.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications" class="section">
+    <p class="eyebrow">SECTION 02 — PUBLICATIONS</p>
+    <h2>Peer-reviewed work</h2>
+    <ul class="pub-list">
+      <li class="pub-item">
+        <span class="pub-year">2026</span>
+        <div class="pub-body">
+          <p class="pub-title">Title of your paper goes here</p>
+          <p class="pub-meta">Your Name, Co-Author Name, et al. — <em>Journal Name</em></p>
+        </div>
+        <a class="pub-link" href="#" target="_blank" rel="noopener">DOI &rarr;</a>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2025</span>
+        <div class="pub-body">
+          <p class="pub-title">Second publication title placeholder</p>
+          <p class="pub-meta">Your Name, Co-Author Name, et al. — <em>Journal Name</em></p>
+        </div>
+        <a class="pub-link" href="#" target="_blank" rel="noopener">DOI &rarr;</a>
+      </li>
+      <li class="pub-item">
+        <span class="pub-year">2024</span>
+        <div class="pub-body">
+          <p class="pub-title">Third publication title placeholder</p>
+          <p class="pub-meta">Your Name, Co-Author Name, et al. — <em>Journal Name</em></p>
+        </div>
+        <a class="pub-link" href="#" target="_blank" rel="noopener">DOI &rarr;</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- BIOINFORMATICS PROJECTS -->
+  <section id="bioinformatics" class="section">
+    <p class="eyebrow">SECTION 03 — BIOINFORMATICS PROJECTS</p>
+    <h2>Pipelines &amp; analysis tools</h2>
+    <div class="grid grid-2up">
+      <article class="project-card">
+        <p class="panel-tag">R &middot; NEXTFLOW</p>
+        <h3>Project name</h3>
+        <p>One or two sentences on the problem, your approach, and the outcome.</p>
+        <a href="#" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+      </article>
+      <article class="project-card">
+        <p class="panel-tag">PYTHON &middot; PANDAS</p>
+        <h3>Project name</h3>
+        <p>One or two sentences on the problem, your approach, and the outcome.</p>
+        <a href="#" target="_blank" rel="noopener">View on GitHub &rarr;</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- MEDICAL WRITING -->
+  <section id="writing" class="section">
+    <p class="eyebrow">SECTION 04 — MEDICAL WRITING</p>
+    <h2>Writing samples &amp; projects</h2>
+    <div class="grid grid-2up">
+      <article class="project-card">
+        <p class="panel-tag">MANUSCRIPT SUPPORT</p>
+        <h3>Project or sample title</h3>
+        <p>Short description of the piece, audience, and your role in producing it.</p>
+        <a href="#" target="_blank" rel="noopener">Read sample &rarr;</a>
+      </article>
+      <article class="project-card">
+        <p class="panel-tag">PLAIN-LANGUAGE SUMMARY</p>
+        <h3>Project or sample title</h3>
+        <p>Short description of the piece, audience, and your role in producing it.</p>
+        <a href="#" target="_blank" rel="noopener">Read sample &rarr;</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <p class="eyebrow">SECTION 05 — CONTACT</p>
+    <h2>Let's talk</h2>
+    <p class="contact-sub">Open to collaborations in bioinformatics, clinical research, and medical writing.</p>
+    <div class="contact-links">
+      <a href="mailto:you@example.com">you@example.com</a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener">ORCID</a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Your Name. Built with HTML, CSS, and GitHub Pages.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
