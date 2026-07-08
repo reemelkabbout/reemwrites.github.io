@@ -1,17 +1,13 @@
 :root {
-  --paper: #EEF0EA;
-  --panel: #F7F8F4;
-  --ink: #1C2B2B;
-  --ink-soft: #3C4A47;
-  --teal: #2F6F6C;
-  --teal-dark: #204E4B;
-  --rust: #B0453A;
-  --grey: #7A8580;
-  --line: #C9D0C7;
-
-  --font-display: 'Source Serif 4', Georgia, serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --paper: #FBF3EC;      /* warm beige background (was parchment green) */
+  --panel: #FFF8F3;      /* slightly lighter beige for cards */
+  --ink: #5C4A42;        /* soft warm brown-black for text (was teal-black) */
+  --ink-soft: #7A6459;   /* muted brown for secondary text */
+  --teal: #E8A2B0;       /* baby pink — now your primary accent */
+  --teal-dark: #D4788C;  /* deeper rose pink, for buttons/links/hover */
+  --rust: #C97B6D;       /* warm terracotta-pink for emphasis */
+  --grey: #A9968D;       /* beige-grey for captions/labels */
+  --line: #EAD9CD;       /* soft beige-pink hairline dividers */
 }
 
 * { box-sizing: border-box; }
