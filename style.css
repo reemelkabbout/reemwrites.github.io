@@ -1,9 +1,9 @@
 :root {
-  --paper: #FBF3EC;      /* warm beige background (was parchment green) */
+  --paper: #FBF3EC;      /* warm beige background */
   --panel: #FFF8F3;      /* slightly lighter beige for cards */
-  --ink: #5C4A42;        /* soft warm brown-black for text (was teal-black) */
+  --ink: #5C4A42;        /* soft warm brown-black for text */
   --ink-soft: #7A6459;   /* muted brown for secondary text */
-  --teal: #E8A2B0;       /* baby pink — now your primary accent */
+  --teal: #E8A2B0;       /* baby pink — primary accent */
   --teal-dark: #D4788C;  /* deeper rose pink, for buttons/links/hover */
   --rust: #C97B6D;       /* warm terracotta-pink for emphasis */
   --grey: #A9968D;       /* beige-grey for captions/labels */
@@ -57,7 +57,7 @@ button:focus-visible {
     var(--line) 0, var(--line) 1px,
     transparent 1px, transparent 24px
   );
-  background-color: rgba(238, 240, 234, 0.9);
+  background-color: rgba(251, 243, 236, 0.9);
 }
 .ruler-fill {
   height: 100%;
@@ -71,7 +71,7 @@ button:focus-visible {
   position: sticky;
   top: 6px;
   z-index: 99;
-  background: rgba(238, 240, 234, 0.92);
+  background: rgba(251, 243, 236, 0.92);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--line);
 }
@@ -177,7 +177,7 @@ button:focus-visible {
   background: transparent;
   color: var(--teal-dark);
 }
-.btn-ghost:hover { background: rgba(47, 111, 108, 0.08); }
+.btn-ghost:hover { background: rgba(212, 120, 140, 0.08); }
 
 .hero-stats {
   display: flex;
