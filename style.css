@@ -320,3 +320,13 @@ button:focus-visible {
   .pub-item { flex-wrap: wrap; }
   .pub-link { width: 100%; }
 }
+.hero-quote {
+  margin: 40px 0 0;
+  padding: 24px 0 24px 24px;
+  border-left: 3px solid var(--teal);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--ink-soft);
+  max-width: 560px;
+}
