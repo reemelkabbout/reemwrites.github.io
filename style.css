@@ -137,6 +137,9 @@ button:focus-visible {
   color: var(--teal-dark);
   margin: 0 0 12px;
 }
+.hero-eyebrow {
+  font-size: 1.1rem;
+}
 
 /* --- Hero --- */
 .hero {
