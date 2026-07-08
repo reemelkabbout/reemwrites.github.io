@@ -326,7 +326,7 @@ button:focus-visible {
   border-left: 3px solid var(--teal);
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.3rem;
+  font-size: 4.5rem;
   color: var(--ink-soft);
   max-width: 560px;
 }
