@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — Reem El Kabbout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">REEM<span>EL KABBOUT</span></a>
+    <nav class="nav-links">
+      <a href="index.html">&larr; Back to Home</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:64px; max-width:760px;">
+    <p class="eyebrow">RESEARCH</p>
+    <h1 style="font-size:2.2rem;">My Research</h1>
+    <p class="hero-sub" style="margin-bottom:48px;">
+      A closer look at the projects behind my publications — what the questions were,
+      what I did, and what we found.
+    </p>
+
+    <!-- THEME: EPIGENETIC AGE -->
+    <article class="panel" id="epigenetic-age" style="margin-bottom:32px; scroll-margin-top:100px;">
+      <p class="panel-tag">EPIGENETICS &middot; PULMONARY ARTERIAL HYPERTENSION</p>
+      <h3 style="font-size:1.4rem;">Epigenetic Age &amp; Age Acceleration in PAH</h3>
+
+      <p class="about-text" style="margin-top:16px;">
+        <strong>Background.</strong> Pulmonary arterial hypertension (PAH) is a progressive
+        vascular disease driven by mechanisms — metabolic dysfunction, inflammation, DNA damage,
+        cellular senescence — that overlap heavily with the biology of aging itself. This raised
+        a question: is PAH tissue simply older, biologically, than it should be?
+      </p>
+
+      <p class="about-text">
+        Chronological age (based on birth date) and biological age can diverge. DNA methylation
+        patterns at specific genomic loci change in a highly predictable way as cells age, which
+        allows biological age — the <strong>epigenetic age</strong> — to be estimated directly
+        from methylation data, independent of birth date. Comparing epigenetic age to
+        chronological age gives the <strong>epigenetic age acceleration (EAA)</strong>: an EAA
+        above zero indicates the tissue is aging faster than expected, which is associated with
+        increased cardiovascular and pulmonary disease risk.
+      </p>
+
+      <p class="about-text">
+        <strong>What I did.</strong> I analyzed DNA methylation data from PAH patient samples,
+        applying established epigenetic clock models (Horvath and Levine clocks) to compute
+        epigenetic age for each sample, then calculated the epigenetic age acceleration by
+        comparing it against each patient's chronological age. This was done both across
+        different PAH-affected tissues from the same patients (distal pulmonary artery, lung,
+        left ventricle, right ventricle) and in blood samples comparing PAH patients to controls,
+        with statistical testing to determine whether the observed acceleration was significant.
+      </p>
+
+      <p class="about-text">
+        <strong>What we found.</strong> Epigenetic age acceleration varied significantly across
+        PAH-affected tissues within the same patients, and blood-based EAA was elevated in PAH
+        patients relative to controls — suggesting that PAH is associated with a detectable
+        acceleration of biological aging, distinct from the patient's actual age. This supports
+        the idea that aging-related mechanisms are not just incidental to PAH but may be
+        actively involved in its progression, and opens a path toward epigenetic age as a
+        potential biomarker in the disease.
+      </p>
+
+      <p style="margin-top:20px;">
+        <a href="https://academic.oup.com/ajrcmb/article-abstract/70/2/140/8416154" target="_blank" rel="noopener">Read the published letter &rarr;</a>
+      </p>
+    </article>
+
+    <!-- Future research themes go here as additional <article class="panel"> blocks -->
+
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Reem El Kabbout. Built with HTML, CSS, and GitHub Pages.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
