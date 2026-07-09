@@ -28,3 +28,24 @@ updateRuler();
 
 // Footer year
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// Re-scroll to the correct anchor once fonts/layout have fully settled
+if (location.hash) {
+  window.addEventListener('load', () => {
+    const target = document.querySelector(location.hash);
+    if (target) {
+      // Wait for web fonts to finish loading and layout to settle
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'instant', block: 'start' });
+          }, 50);
+        });
+      } else {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }, 300);
+      }
+    }
+  });
+}
