@@ -352,3 +352,21 @@ button:focus-visible {
   margin-bottom: 20px;
   display: block;
 }
+.code-block {
+  background: var(--ink);
+  color: #E8F0EE;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 18px 20px;
+  border-radius: 3px;
+  overflow-x: auto;
+  line-height: 1.5;
+  margin: 0;
+}
+code {
+  font-family: var(--font-mono);
+  background: var(--panel);
+  padding: 1px 5px;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
