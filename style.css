@@ -370,3 +370,10 @@ code {
   border-radius: 2px;
   font-size: 0.9em;
 }
+.about-text {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  margin-bottom: 22px;
+  max-width: 640px;
+}
