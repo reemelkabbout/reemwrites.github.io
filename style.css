@@ -299,7 +299,7 @@ button:focus-visible {
 }
 
 /* --- Responsive --- */
-@media (max-width: 760px) {
+@media (max-width: 1100px) {
   .grid-4up, .grid-2up { grid-template-columns: 1fr; }
 
   .nav-toggle { display: flex; }
