@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a scRNA-seq Pipeline From Scratch — Reem El Kabbout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">REEM<span>EL KABBOUT</span></a>
+    <nav class="nav-links">
+      <a href="index.html#bioinformatics">&larr; Back to Bioinformatics</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:64px;">
+    <p class="eyebrow">TUTORIAL &middot; EP. 01</p>
+    <h1 style="font-size:2.2rem;">Building a scRNA-seq Analysis Pipeline From Scratch</h1>
+    <p class="hero-sub" style="margin-bottom:48px;">
+      A walkthrough of the core steps in single-cell RNA-seq analysis — from raw sequencing
+      reads to clustered cell populations — written for anyone getting started with the workflow.
+    </p>
+
+    <!-- STEP 1 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 1</p>
+      <h3>From FASTQ to Count Matrix</h3>
+      <p>
+        Sequencing produces raw reads in FASTQ format, tagged with cell barcodes and UMIs
+        (unique molecular identifiers). Before any biology can be analyzed, these reads need
+        to be aligned to a reference genome and quantified per cell — the output is a
+        <strong>gene-by-cell count matrix</strong>, where each entry is the number of transcripts
+        detected for a given gene in a given cell. This is typically done with
+        <strong>Cell Ranger</strong> (10x Genomics' pipeline) or the open-source alternative,
+        <strong>STARsolo</strong>.
+      </p>
+      <pre class="code-block">cellranger count --id=sample1 \
+  --transcriptome=refdata-gex-GRCh38 \
+  --fastqs=/path/to/fastq \
+  --sample=sample1</pre>
+    </article>
+
+    <!-- STEP 2 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 2</p>
+      <h3>Quality Control (QC)</h3>
+      <p>
+        Not every "cell" in the raw matrix is a real, healthy cell — some are empty droplets,
+        doublets, or dying cells. Three metrics are used to filter these out:
+        the number of genes detected per cell (<code>nFeature_RNA</code>), total transcript
+        counts, and the percentage of mitochondrial reads (<code>percent.mt</code>) — a high
+        mitochondrial fraction usually signals a stressed or dying cell, since damaged cells leak
+        cytoplasmic RNA and are left with a relatively higher share of mitochondrial transcripts.
+      </p>
+      <pre class="code-block">library(Seurat)
+obj &lt;- Read10X("path/to/filtered_feature_bc_matrix")
+obj &lt;- CreateSeuratObject(obj, min.cells=3, min.features=200)
+obj[["percent.mt"]] &lt;- PercentageFeatureSet(obj, pattern="^MT-")
+obj &lt;- subset(obj, nFeature_RNA &gt; 200 &amp; percent.mt &lt; 15)</pre>
+    </article>
+
+    <!-- STEP 3 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 3</p>
+      <h3>Normalization &amp; Clustering</h3>
+      <p>
+        Sequencing depth varies cell-to-cell, so counts need to be normalized before comparison —
+        <strong>SCTransform</strong> handles this while also regressing out unwanted technical
+        variation (like mitochondrial content). <strong>PCA</strong> then reduces the data to its
+        main axes of variation, <strong>UMAP</strong> projects that into two dimensions for
+        visualization, and <code>FindNeighbors</code> / <code>FindClusters</code> group
+        transcriptionally similar cells into clusters — the first step toward identifying
+        distinct cell types.
+      </p>
+      <pre class="code-block">obj &lt;- SCTransform(obj, vars.to.regress="percent.mt")
+obj &lt;- RunPCA(obj)
+obj &lt;- RunUMAP(obj, dims=1:30)
+obj &lt;- FindNeighbors(obj, dims=1:30)
+obj &lt;- FindClusters(obj, resolution=0.5)</pre>
+      <p style="margin-top:16px; color:var(--grey); font-size:0.9rem;">
+        Next up in this series: integrating multiple samples with Harmony, and practical
+        approaches to annotating clusters by cell type.
+      </p>
+    </article>
+
+    <a href="index.html#bioinformatics">&larr; Back to Bioinformatics Projects</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Reem El Kabbout. Built with HTML, CSS, and GitHub Pages.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
