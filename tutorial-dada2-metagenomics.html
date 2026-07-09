@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metagenomics Taxonomic Profiling With DADA2 — Reem El Kabbout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Reem<span>Writes</span></a>
+    <nav class="nav-links">
+      <a href="index.html#bioinformatics">&larr; Back to Bioinformatics</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:64px;">
+    <p class="eyebrow">TUTORIAL &middot; EP. 03</p>
+    <h1 style="font-size:2.2rem;">Metagenomic Taxonomic Profiling With DADA2</h1>
+    <p class="hero-sub" style="margin-bottom:48px;">
+      A walkthrough of the downstream processing steps for amplicon sequencing data in R —
+      from filtered FASTQ reads to a taxonomy table identifying bacterial and fungal
+      community composition.
+    </p>
+
+    <!-- STEP 1 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 1</p>
+      <h3>Filter &amp; Trim Reads</h3>
+      <p>
+        Before any biological signal can be extracted, raw paired-end reads need quality
+        filtering: trimming low-quality bases, removing reads with ambiguous base calls (N),
+        and truncating to a consistent length. This step is critical for DADA2's downstream
+        error model — inconsistent read quality or length propagates directly into inaccurate
+        sequence variant calls.
+      </p>
+      <pre class="code-block">library(dada2)
+
+path &lt;- "path/to/fastq_files"
+fnFs &lt;- sort(list.files(path, pattern = "_R1.fastq", full.names = TRUE))
+fnRs &lt;- sort(list.files(path, pattern = "_R2.fastq", full.names = TRUE))
+sample.names &lt;- sapply(strsplit(basename(fnFs), "_R1"), `[`, 1)
+
+filtFs &lt;- file.path(path, "filtered", paste0(sample.names, "_F_filt.fastq.gz"))
+filtRs &lt;- file.path(path, "filtered", paste0(sample.names, "_R_filt.fastq.gz"))
+
+out &lt;- filterAndTrim(fnFs, filtFs, fnRs, filtRs,
+                      truncLen = c(240, 160),
+                      maxN = 0, maxEE = c(2, 2), truncQ = 2,
+                      rm.phix = TRUE, compress = TRUE, multithread = TRUE)</pre>
+    </article>
+
+    <!-- STEP 2 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 2</p>
+      <h3>Learn Error Rates &amp; Denoise</h3>
+      <p>
+        DADA2's core strength is distinguishing true biological sequence variants from
+        sequencing errors. It does this by first learning a run-specific error model from
+        the data itself — how likely each type of base substitution is, as a function of
+        quality score — then using that model to correct reads down to their most likely
+        true sequence. This produces <strong>amplicon sequence variants (ASVs)</strong>, a
+        higher-resolution alternative to the older OTU-clustering approach, since ASVs
+        resolve differences down to a single nucleotide rather than grouping reads by a
+        similarity threshold.
+      </p>
+      <pre class="code-block">errF &lt;- learnErrors(filtFs, multithread = TRUE)
+errR &lt;- learnErrors(filtRs, multithread = TRUE)
+
+dadaFs &lt;- dada(filtFs, err = errF, multithread = TRUE)
+dadaRs &lt;- dada(filtRs, err = errR, multithread = TRUE)</pre>
+    </article>
+
+    <!-- STEP 3 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 3</p>
+      <h3>Merge Pairs &amp; Build the Sequence Table</h3>
+      <p>
+        Forward and reverse reads are merged where their overlapping region matches,
+        reconstructing the full amplicon sequence. The result is assembled into a
+        <strong>sequence table</strong> — samples as rows, unique ASVs as columns, with read
+        counts as values. <strong>Chimeras</strong> (artificial sequences formed when two
+        different DNA templates get spliced together during PCR) are then identified and
+        removed, since they don't represent real organisms and would otherwise inflate
+        apparent diversity.
+      </p>
+      <pre class="code-block">mergers &lt;- mergePairs(dadaFs, filtFs, dadaRs, filtRs, verbose = TRUE)
+
+seqtab &lt;- makeSequenceTable(mergers)
+
+seqtab.nochim &lt;- removeBimeraDenovo(seqtab, method = "consensus",
+                                     multithread = TRUE, verbose = TRUE)</pre>
+    </article>
+
+    <!-- STEP 4 -->
+    <article class="panel" style="margin-bottom:24px;">
+      <p class="panel-tag">STEP 4</p>
+      <h3>Assign Taxonomy</h3>
+      <p>
+        Each ASV is then classified against a reference database using a naive Bayesian
+        classifier — <strong>SILVA</strong> for bacterial/archaeal 16S rRNA sequences, or
+        <strong>UNITE</strong> for fungal ITS sequences, depending on which marker gene was
+        sequenced. The output assigns each ASV a taxonomic label from kingdom down to genus
+        (and species, where reference resolution allows) — turning a table of anonymous DNA
+        sequences into an interpretable profile of which bacterial or fungal taxa are present
+        in each sample, and at what relative abundance.
+      </p>
+      <pre class="code-block">taxa &lt;- assignTaxonomy(seqtab.nochim,
+                        "silva_nr99_v138_train_set.fa.gz",
+                        multithread = TRUE)
+
+# For fungal ITS data, the UNITE reference set is used instead:
+# taxa &lt;- assignTaxonomy(seqtab.nochim, "unite_reference_set.fa.gz", multithread = TRUE)</pre>
+      <p style="margin-top:16px; color:var(--grey); font-size:0.9rem;">
+        From here, the ASV table and taxonomy assignments can be carried into diversity
+        analysis (alpha/beta diversity), differential abundance testing between conditions,
+        or visualization of community composition across samples.
+      </p>
+    </article>
+
+    <a href="index.html#bioinformatics">&larr; Back to Bioinformatics Projects</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; <span id="year"></span> Reem El Kabbout. Built with HTML, CSS, and GitHub Pages.</p>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
